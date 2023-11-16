@@ -1,18 +1,15 @@
 from kafka import KafkaProducer
 
-# Define the Kafka broker connection details
 broker_hosts = ["aryan-Swift-SF314-55G:9092"]
-
-# Create a Kafka producer instance
 producer = KafkaProducer(bootstrap_servers=broker_hosts)
 
-def send_messages():
-    while True:
-        message = input("Enter message to send: ")
-        topic = "testtopic"
 
-        producer.send(topic, message.encode())
-        print(f"Sent message: {message}")
+def send_messages(data):
+
+    topic = "testtopic"
+    producer.send(topic, data.encode())
+    print(f"Sent message: {data}")
+
 
 if __name__ == "__main__":
-    send_messages()
+    send_messages("apple")
