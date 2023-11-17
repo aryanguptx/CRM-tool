@@ -7,14 +7,15 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    return render_template('/home/aryan/Desktop/CRM2/anon-ecommerce-website/index.html')
+    return render_template('index.html')
 
 
 @app.route("/pushtotopic")
 def push_to_topic():
-    data = 5121
+    data = "Aryan"
     #data = request.json['data']
     send_messages(data)
+    return "succesfully pushd to the topic"
 
 
 if __name__ == "__main__":
