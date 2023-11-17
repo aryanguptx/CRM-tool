@@ -12,7 +12,7 @@ def hello_world():
 
 @app.route("/pushtotopic")
 def push_to_topic():
-    data = 5
+    data = 5121
     #data = request.json['data']
     send_messages(data)
 
