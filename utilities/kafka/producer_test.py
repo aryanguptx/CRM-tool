@@ -1,15 +1,21 @@
 from kafka import KafkaProducer
-
-broker_hosts = ["aryan-Swift-SF314-55G:9092"]
-producer = KafkaProducer(bootstrap_servers=broker_hosts)
+from json import dumps
 
 
-def send_messages(data):
+my_producer = KafkaProducer(
+    bootstrap_servers = ['localhost:9092'],
+    value_serializer = lambda x: dumps(x).encode('utf-8')
+    )
+
+
+def send_messages(message):
 
     topic = "testtopic"
-    producer.send(topic, data.encode())
+    data = {'value': message}
+    my_producer.send(topic, data)
     print(f"Sent message: {data}")
+    my_producer.flush()
 
 
 if __name__ == "__main__":
-    send_messages("apple")
+    send_messages("sdf")

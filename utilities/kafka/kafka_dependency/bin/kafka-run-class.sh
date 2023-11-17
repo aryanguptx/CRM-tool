@@ -67,7 +67,7 @@ if [ -z "$UPGRADE_KAFKA_STREAMS_TEST_VERSION" ]; then
   done
 fi
 
-for file in "$base_dir"/examples/build/libs/kafka_dependency-examples*.jar;
+for file in "$base_dir"/examples/build/libs/kafka-examples*.jar;
 do
   if should_include_file "$file"; then
     CLASSPATH="$CLASSPATH":"$file"
@@ -79,20 +79,20 @@ if [ -z "$UPGRADE_KAFKA_STREAMS_TEST_VERSION" ]; then
   streams_lib_dir=$(dirname $0)/../streams/build/libs
   streams_dependant_clients_lib_dir=$(dirname $0)/../streams/build/dependant-libs-${SCALA_VERSION}
 else
-  clients_lib_dir=/opt/kafka_dependency-$UPGRADE_KAFKA_STREAMS_TEST_VERSION/libs
+  clients_lib_dir=/opt/kafka-$UPGRADE_KAFKA_STREAMS_TEST_VERSION/libs
   streams_lib_dir=$clients_lib_dir
   streams_dependant_clients_lib_dir=$streams_lib_dir
 fi
 
 
-for file in "$clients_lib_dir"/kafka_dependency-clients*.jar;
+for file in "$clients_lib_dir"/kafka-clients*.jar;
 do
   if should_include_file "$file"; then
     CLASSPATH="$CLASSPATH":"$file"
   fi
 done
 
-for file in "$streams_lib_dir"/kafka_dependency-streams*.jar;
+for file in "$streams_lib_dir"/kafka-streams*.jar;
 do
   if should_include_file "$file"; then
     CLASSPATH="$CLASSPATH":"$file"
@@ -100,7 +100,7 @@ do
 done
 
 if [ -z "$UPGRADE_KAFKA_STREAMS_TEST_VERSION" ]; then
-  for file in "$base_dir"/streams/examples/build/libs/kafka_dependency-streams-examples*.jar;
+  for file in "$base_dir"/streams/examples/build/libs/kafka-streams-examples*.jar;
   do
     if should_include_file "$file"; then
       CLASSPATH="$CLASSPATH":"$file"
@@ -109,7 +109,7 @@ if [ -z "$UPGRADE_KAFKA_STREAMS_TEST_VERSION" ]; then
 else
   VERSION_NO_DOTS=`echo $UPGRADE_KAFKA_STREAMS_TEST_VERSION | sed 's/\.//g'`
   SHORT_VERSION_NO_DOTS=${VERSION_NO_DOTS:0:((${#VERSION_NO_DOTS} - 1))} # remove last char, ie, bug-fix number
-  for file in "$base_dir"/streams/upgrade-system-tests-$SHORT_VERSION_NO_DOTS/build/libs/kafka_dependency-streams-upgrade-system-tests*.jar;
+  for file in "$base_dir"/streams/upgrade-system-tests-$SHORT_VERSION_NO_DOTS/build/libs/kafka-streams-upgrade-system-tests*.jar;
   do
     if should_include_file "$file"; then
       CLASSPATH="$file":"$CLASSPATH"
@@ -135,7 +135,7 @@ do
   CLASSPATH="$CLASSPATH":"$file"
 done
 
-for file in "$base_dir"/shell/build/libs/kafka_dependency-shell*.jar;
+for file in "$base_dir"/shell/build/libs/kafka-shell*.jar;
 do
   if should_include_file "$file"; then
     CLASSPATH="$CLASSPATH":"$file"
@@ -147,7 +147,7 @@ do
   CLASSPATH="$CLASSPATH:$dir/*"
 done
 
-for file in "$base_dir"/tools/build/libs/kafka_dependency-tools*.jar;
+for file in "$base_dir"/tools/build/libs/kafka-tools*.jar;
 do
   if should_include_file "$file"; then
     CLASSPATH="$CLASSPATH":"$file"

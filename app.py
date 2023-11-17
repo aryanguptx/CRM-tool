@@ -20,10 +20,6 @@ def push_to_topic():
 if __name__ == "__main__":
     app.run(debug=True)
 
-
-
-
-
 """
 ./zookeeper-server-start.sh ../config/zookeeper.properties
 ./kafka_dependency-server-start.sh ../config/server.properties

@@ -1,11 +1,11 @@
 from kafka import KafkaConsumer
-
-# Define the Kafka broker connection details
-broker_hosts = ["aryan-Swift-SF314-55G:9092"]
+from json import loads
+broker_hosts = ["localhost:9092"]
 
 # Create a Kafka consumer instance
-consumer = KafkaConsumer(bootstrap_servers=broker_hosts,  auto_offset_reset="latest")
+consumer = KafkaConsumer(bootstrap_servers=broker_hosts, group_id = None, auto_offset_reset="earliest", value_deserializer = lambda x : loads(x.decode('utf-8'))  )
 consumer.subscribe(["testtopic"])
+
 
 def consume_messages():
     while True:
@@ -17,8 +17,9 @@ def consume_messages():
                     message_value = msg.value
 
                     # Decode the message value based on the encoding used
-                    message = message_value.decode()
-                    print(f"Received message: {message} and event is {event}")
+
+                    print(f"Received message: {message_value}")
+
 
 if __name__ == "__main__":
     consume_messages()
