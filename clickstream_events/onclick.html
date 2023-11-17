@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Click and Scroll Events</title>
+</head>
+
+<body>
+
+  <h1>Click and Scroll Events</h1>
+
+  <script>
+    // Dummy user credentials (replace with your actual authentication logic)
+    const dummyUsername = 'user123';
+    const dummyPassword = 'password123';
+
+    // Get the page identifier from the HTML file name
+    const pageIdentifier = window.location.pathname.split('/').pop().split('.')[0];
+
+    // Perform user authentication
+    function authenticateUser(username, password) {
+      return new Promise((resolve, reject) => {
+        // Simulate server-side authentication logic (replace with actual server-side authentication)
+        setTimeout(() => {
+          if (username === dummyUsername && password === dummyPassword) {
+            resolve({ authenticated: true, userId: '123' });
+          } else {
+            reject({ authenticated: false, message: 'Invalid credentials' });
+          }
+        }, 500); // Simulate delay for demo purposes
+      });
+    }
+
+    // Send authenticated event to the backend
+    function sendAuthenticatedEvent() {
+      const userId = '123'; // Replace with your user authentication logic
+
+      // Check if the user is authenticated
+      if (userId) {
+        const eventData = {
+          userId: userId,
+          eventType: 'authenticated',
+          timestamp: new Date().toISOString(),
+          pageIdentifier: pageIdentifier,
+        };
+
+        // Replace 'http://your-backend-server/produce-event' with the actual endpoint of your backend server
+        fetch('http://your-backend-server/produce-event', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(eventData),
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Authenticated event sent successfully:', data);
+        })
+        .catch(error => {
+          console.error('Error sending authenticated event:', error);
+        });
+      }
+    }
+
+    // Perform authentication when the page loads
+    document.addEventListener('DOMContentLoaded', function () {
+      authenticateUser(dummyUsername, dummyPassword)
+        .then((response) => {
+          if (response.authenticated) {
+            console.log('User authenticated:', response);
+            sendAuthenticatedEvent();
+          } else {
+            console.error('Authentication failed:', response.message);
+          }
+        })
+        .catch(error => {
+          console.error('Error during authentication:', error);
+        });
+    });
+
+    // Event listeners for clicks and scrolls
+    document.addEventListener('click', function () {
+      sendEvent('click');
+    });
+
+    document.addEventListener('scroll', function () {
+      sendEvent('scroll');
+    });
+
+    // Send event to the backend
+    function sendEvent(eventType) {
+      const userId = '123'; // Replace with your user authentication logic
+
+      const eventData = {
+        userId: userId,
+        eventType: eventType,
+        timestamp: new Date().toISOString(),
+        pageIdentifier: pageIdentifier,
+      };
+
+      // Replace 'http://your-backend-server/produce-event' with the actual endpoint of your backend server
+      fetch('http://your-backend-server/produce-event', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(eventData),
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Event sent successfully:', data);
+      })
+      .catch(error => {
+        console.error('Error sending event:', error);
+      });
+    }
+  </script>
+
+</body>
+
+</html>
